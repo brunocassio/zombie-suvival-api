@@ -20,6 +20,9 @@ public class Item {
     @OneToOne(mappedBy = "item")
     private Inventory inventory;
 
+    public Item() {
+    }
+
     public Item(Integer points, String name) {
         this.points = points;
         this.name = name;
