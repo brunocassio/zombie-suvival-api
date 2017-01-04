@@ -1,5 +1,6 @@
 package com.zombiesurvival.domain;
 
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,11 +20,11 @@ public class Inventory {
 
     private Date updatedAt;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "survivor_id")
     private Survivor survivor;
 

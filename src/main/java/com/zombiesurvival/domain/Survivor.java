@@ -29,7 +29,7 @@ public class Survivor {
 
     private Boolean isInfected;
 
-    @OneToMany(mappedBy = "survivor")
+    @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})
     private List<Inventory> inventoryList;
 
     public Long getId() {

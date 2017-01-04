@@ -46,7 +46,7 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
 
     }
 
-    private List<Inventory> returnInventory(){
+    private List<Inventory> returnInventory(Survivor survivor){
         List<Inventory> inventories = new ArrayList<>();
 
         Inventory water = new Inventory();
@@ -54,36 +54,32 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         water.setCreatedAt(new Date());
         water.setQuantity(1);
         Item waterItem = new Item(4, "Water");
-        itemRepository.save(waterItem);
         water.setItem(waterItem);
-        inventoryRepository.save(water);
+        water.setSurvivor(survivor);
 
         Inventory food = new Inventory();
         food.setUpdatedAt(new Date());
         food.setCreatedAt(new Date());
         food.setQuantity(1);
         Item foodItem = new Item(3, "Food");
-        itemRepository.save(foodItem);
         food.setItem(foodItem);
-        inventoryRepository.save(food);
+        food.setSurvivor(survivor);
 
         Inventory medication = new Inventory();
         medication.setUpdatedAt(new Date());
         medication.setCreatedAt(new Date());
         medication.setQuantity(1);
         Item medicationItem = new Item(2, "Medication");
-        itemRepository.save(medicationItem);
         medication.setItem(medicationItem);
-        inventoryRepository.save(medication);
+        medication.setSurvivor(survivor);
 
         Inventory ammunition = new Inventory();
         ammunition.setUpdatedAt(new Date());
         ammunition.setCreatedAt(new Date());
         ammunition.setQuantity(1);
         Item ammunitionItem = new Item(1, "Ammunition");
-        itemRepository.save(ammunitionItem);
         ammunition.setItem(ammunitionItem);
-        inventoryRepository.save(ammunition);
+        ammunition.setSurvivor(survivor);
 
         inventories.add(water);
         inventories.add(food);
@@ -102,7 +98,7 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor1.setGender("M");
         survivor1.setInfected(Boolean.FALSE);
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
-        survivor1.setInventoryList(returnInventory());
+        survivor1.setInventoryList(returnInventory(survivor1));
         survivorRepository.save(survivor1);
 
         Survivor survivor2 = new Survivor();
@@ -113,7 +109,7 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor2.setGender("F");
         survivor2.setInfected(Boolean.FALSE);
         survivor2.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
-        survivor2.setInventoryList(returnInventory());
+        survivor2.setInventoryList(returnInventory(survivor2));
         survivorRepository.save(survivor2);
     }
 }
