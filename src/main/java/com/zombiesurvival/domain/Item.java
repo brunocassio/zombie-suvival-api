@@ -1,15 +1,14 @@
 package com.zombiesurvival.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by bru9isk on 02/01/17.
  */
 @Entity
+@Table(name = "item")
 public class Item {
 
     @Id
@@ -19,6 +18,14 @@ public class Item {
     private Integer points;
 
     private String name;
+
+    @OneToMany(mappedBy = "item")
+    private List<Inventory> inventoryList;
+
+    public Item(Integer points, String name) {
+        this.points = points;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -42,5 +49,13 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
+
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
     }
 }

@@ -20,7 +20,12 @@ public class Inventory {
     private Date updatedAt;
 
     @ManyToOne
+    @JoinColumn(name = "item_id")
     private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "survivor_id")
+    private Survivor survivor;
 
     public Long getId() {
         return id;
@@ -60,5 +65,13 @@ public class Inventory {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Survivor getSurvivor() {
+        return survivor;
+    }
+
+    public void setSurvivor(Survivor survivor) {
+        this.survivor = survivor;
     }
 }

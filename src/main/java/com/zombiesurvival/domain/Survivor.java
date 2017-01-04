@@ -1,15 +1,14 @@
 package com.zombiesurvival.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by bru9isk on 02/01/17.
  */
 @Entity
+@Table(name = "survivor")
 public class Survivor {
 
     @Id
@@ -29,6 +28,9 @@ public class Survivor {
     private Date updatedAt;
 
     private Boolean isInfected;
+
+    @OneToMany(mappedBy = "survivor")
+    private List<Inventory> inventoryList;
 
     public Long getId() {
         return id;
@@ -92,5 +94,13 @@ public class Survivor {
 
     public void setInfected(Boolean infected) {
         isInfected = infected;
+    }
+
+    public List<Inventory> getInventoryList() {
+        return inventoryList;
+    }
+
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
     }
 }
