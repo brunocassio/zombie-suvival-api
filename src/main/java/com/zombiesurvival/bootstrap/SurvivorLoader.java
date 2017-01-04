@@ -54,36 +54,36 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         water.setCreatedAt(new Date());
         water.setQuantity(1);
         Item waterItem = new Item(4, "Water");
-//        itemRepository.save(waterItem);
+        itemRepository.save(waterItem);
         water.setItem(waterItem);
-//        inventoryRepository.save(water);
+        inventoryRepository.save(water);
 
         Inventory food = new Inventory();
         food.setUpdatedAt(new Date());
         food.setCreatedAt(new Date());
         food.setQuantity(1);
         Item foodItem = new Item(3, "Food");
-//        itemRepository.save(foodItem);
+        itemRepository.save(foodItem);
         food.setItem(foodItem);
-//        inventoryRepository.save(food);
+        inventoryRepository.save(food);
 
         Inventory medication = new Inventory();
         medication.setUpdatedAt(new Date());
         medication.setCreatedAt(new Date());
         medication.setQuantity(1);
         Item medicationItem = new Item(2, "Medication");
-//        itemRepository.save(medicationItem);
+        itemRepository.save(medicationItem);
         medication.setItem(medicationItem);
-//        inventoryRepository.save(medication);
+        inventoryRepository.save(medication);
 
         Inventory ammunition = new Inventory();
         ammunition.setUpdatedAt(new Date());
         ammunition.setCreatedAt(new Date());
         ammunition.setQuantity(1);
         Item ammunitionItem = new Item(1, "Ammunition");
-//        itemRepository.save(ammunitionItem);
+        itemRepository.save(ammunitionItem);
         ammunition.setItem(ammunitionItem);
-//        inventoryRepository.save(ammunition);
+        inventoryRepository.save(ammunition);
 
         inventories.add(water);
         inventories.add(food);

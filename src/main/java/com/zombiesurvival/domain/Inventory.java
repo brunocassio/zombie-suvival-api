@@ -19,7 +19,7 @@ public class Inventory {
 
     private Date updatedAt;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "item_id")
     private Item item;
 

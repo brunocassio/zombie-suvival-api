@@ -1,8 +1,6 @@
 package com.zombiesurvival.domain;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by bru9isk on 02/01/17.
@@ -19,8 +17,8 @@ public class Item {
 
     private String name;
 
-    @OneToMany(mappedBy = "item")
-    private List<Inventory> inventoryList;
+    @OneToOne(mappedBy = "item")
+    private Inventory inventory;
 
     public Item(Integer points, String name) {
         this.points = points;
@@ -51,11 +49,11 @@ public class Item {
         this.name = name;
     }
 
-    public List<Inventory> getInventoryList() {
-        return inventoryList;
+    public Inventory getInventory() {
+        return inventory;
     }
 
-    public void setInventoryList(List<Inventory> inventoryList) {
-        this.inventoryList = inventoryList;
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }
