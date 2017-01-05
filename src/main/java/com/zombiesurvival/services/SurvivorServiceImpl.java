@@ -22,4 +22,9 @@ public class SurvivorServiceImpl implements SurvivorService {
     public Iterable<Survivor> fetchesAllSurvivor() {
         return survivorRepository.findAll();
     }
+
+    @Override
+    public Survivor fetchSingleSurvivor(Long id) {
+        return survivorRepository.findOne(id);
+    }
 }

@@ -1,5 +1,8 @@
 package com.zombiesurvival.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.zombiesurvival.view.View;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -13,20 +16,28 @@ public class Survivor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Summary.class)
     private Long id;
 
+    @JsonView(View.Summary.class)
     private String name;
 
+    @JsonView(View.Summary.class)
     private Integer age;
 
+    @JsonView(View.Summary.class)
     private String gender;
 
+    @JsonView(View.Summary.class)
     private String lonlat;
 
+    @JsonView(View.Summary.class)
     private Date createdAt;
 
+    @JsonView(View.Summary.class)
     private Date updatedAt;
 
+    @JsonView(View.Summary.class)
     private Boolean isInfected;
 
     @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})

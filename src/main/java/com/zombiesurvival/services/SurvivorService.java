@@ -8,4 +8,5 @@ import com.zombiesurvival.domain.Survivor;
 public interface SurvivorService {
 
     Iterable<Survivor> fetchesAllSurvivor();
+    Survivor fetchSingleSurvivor(Long id);
 }

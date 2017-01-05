@@ -1,6 +1,9 @@
 package com.zombiesurvival.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.zombiesurvival.view.View;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,16 +15,21 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(View.Summary.class)
     private Long id;
 
+    @JsonView(View.Summary.class)
     private Integer quantity;
 
+    @JsonView(View.Summary.class)
     private Date createdAt;
 
+    @JsonView(View.Summary.class)
     private Date updatedAt;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "item_id")
+    @JsonView(View.Summary.class)
     private Item item;
 
     @ManyToOne(cascade = {CascadeType.ALL})

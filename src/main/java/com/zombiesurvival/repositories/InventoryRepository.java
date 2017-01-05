@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by bru9isk on 02/01/17.
  */
 public interface InventoryRepository extends CrudRepository<Inventory, Long> {
+
 }
