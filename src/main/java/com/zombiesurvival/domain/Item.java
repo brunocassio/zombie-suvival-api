@@ -1,5 +1,8 @@
 package com.zombiesurvival.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.zombiesurvival.view.View;
+
 import javax.persistence.*;
 
 /**
@@ -13,8 +16,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonView(View.Summary.class)
     private Integer points;
 
+    @JsonView(View.Summary.class)
     private String name;
 
     @OneToOne(mappedBy = "item")

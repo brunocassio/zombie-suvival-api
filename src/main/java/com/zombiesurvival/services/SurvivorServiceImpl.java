@@ -5,6 +5,8 @@ import com.zombiesurvival.repositories.SurvivorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by bru9isk on 02/01/17.
  */
@@ -24,7 +26,17 @@ public class SurvivorServiceImpl implements SurvivorService {
     }
 
     @Override
+    public List<Survivor> listAllSurvivor() {
+        return survivorRepository.listAllSurvivor();
+    }
+
+    @Override
     public Survivor fetchSingleSurvivor(Long id) {
         return survivorRepository.findOne(id);
+    }
+
+    @Override
+    public void addSurvivor(Survivor survivor) {
+        survivorRepository.save(survivor);
     }
 }

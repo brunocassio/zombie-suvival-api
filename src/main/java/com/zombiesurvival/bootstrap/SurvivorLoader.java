@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,39 +45,38 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         addSurvivor();
-
     }
 
     private List<Inventory> returnInventory(Survivor survivor){
         List<Inventory> inventories = new ArrayList<>();
 
         Inventory water = new Inventory();
-        water.setUpdatedAt(new Date());
-        water.setCreatedAt(new Date());
+        water.setCreated_at(returnFormatedDate(new Date()));
+        water.setUpdated_at(returnFormatedDate(new Date()));
         water.setQuantity(1);
         Item waterItem = new Item(4, "Water");
         water.setItem(waterItem);
         water.setSurvivor(survivor);
 
         Inventory food = new Inventory();
-        food.setUpdatedAt(new Date());
-        food.setCreatedAt(new Date());
+        food.setUpdated_at(returnFormatedDate(new Date()));
+        food.setCreated_at(returnFormatedDate(new Date()));
         food.setQuantity(1);
         Item foodItem = new Item(3, "Food");
         food.setItem(foodItem);
         food.setSurvivor(survivor);
 
         Inventory medication = new Inventory();
-        medication.setUpdatedAt(new Date());
-        medication.setCreatedAt(new Date());
+        medication.setUpdated_at(returnFormatedDate(new Date()));
+        medication.setCreated_at(returnFormatedDate(new Date()));
         medication.setQuantity(1);
         Item medicationItem = new Item(2, "Medication");
         medication.setItem(medicationItem);
         medication.setSurvivor(survivor);
 
         Inventory ammunition = new Inventory();
-        ammunition.setUpdatedAt(new Date());
-        ammunition.setCreatedAt(new Date());
+        ammunition.setUpdated_at(returnFormatedDate(new Date()));
+        ammunition.setCreated_at(returnFormatedDate(new Date()));
         ammunition.setQuantity(1);
         Item ammunitionItem = new Item(1, "Ammunition");
         ammunition.setItem(ammunitionItem);
@@ -93,8 +94,8 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         Survivor survivor1 = new Survivor();
         survivor1.setName("Bruno");
         survivor1.setAge(30);
-        survivor1.setCreatedAt(new Date());
-        survivor1.setUpdatedAt(new Date());
+        survivor1.setCreated_at(returnFormatedDate(new Date()));
+        survivor1.setUpdated_at(returnFormatedDate(new Date()));
         survivor1.setGender("M");
         survivor1.setInfected(Boolean.FALSE);
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
@@ -104,12 +105,17 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         Survivor survivor2 = new Survivor();
         survivor2.setName("Adriana");
         survivor2.setAge(28);
-        survivor2.setCreatedAt(new Date());
-        survivor2.setUpdatedAt(new Date());
+        survivor2.setCreated_at(returnFormatedDate(new Date()));
+        survivor2.setUpdated_at(returnFormatedDate(new Date()));
         survivor2.setGender("F");
         survivor2.setInfected(Boolean.FALSE);
         survivor2.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
         survivor2.setInventoryList(returnInventory(survivor2));
         survivorRepository.save(survivor2);
+    }
+
+    private String returnFormatedDate(Date date){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ms'Z'");
+        return df.format(date);
     }
 }

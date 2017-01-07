@@ -20,6 +20,7 @@ public class PropertiesServiceImpl implements PropertiesService {
 
     @Override
     public Iterable<Inventory> fetchAllItems(Long id) {
-        return null;
+        Iterable<Inventory> inventories = inventoryRepository.fetchAllItemsById(id);
+        return inventories;
     }
 }

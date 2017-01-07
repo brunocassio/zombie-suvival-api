@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.zombiesurvival.view.View;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by bru9isk on 02/01/17.
@@ -22,10 +21,10 @@ public class Inventory {
     private Integer quantity;
 
     @JsonView(View.Summary.class)
-    private Date createdAt;
+    private String created_at;
 
     @JsonView(View.Summary.class)
-    private Date updatedAt;
+    private String updated_at;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "item_id")
@@ -52,21 +51,6 @@ public class Inventory {
         this.quantity = quantity;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public Item getItem() {
         return item;
@@ -82,5 +66,21 @@ public class Inventory {
 
     public void setSurvivor(Survivor survivor) {
         this.survivor = survivor;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 }
