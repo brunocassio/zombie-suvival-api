@@ -12,6 +12,12 @@ import javax.persistence.*;
 @Table(name = "item")
 public class Item {
 
+    public static final Integer WATER_POINTS = 4;
+    public static final Integer FOOD_POINTS = 3;
+    public static final Integer MEDICATION_POINTS = 2;
+    public static final Integer AMMUNITION_POINTS = 1;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by bru9isk on 02/01/17.
@@ -100,6 +98,11 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor1.setInfected(Boolean.FALSE);
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
         survivor1.setInventoryList(returnInventory(survivor1));
+
+        Map<String, String > items1 = new HashMap<>();
+        items1.put("Water", "1");
+        survivor1.setItems(items1);
+
         survivorRepository.save(survivor1);
 
         Survivor survivor2 = new Survivor();
@@ -111,6 +114,11 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor2.setInfected(Boolean.FALSE);
         survivor2.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
         survivor2.setInventoryList(returnInventory(survivor2));
+
+        Map<String, String > items2 = new HashMap<>();
+        items2.put("Water", "1");
+        survivor2.setItems(items2);
+
         survivorRepository.save(survivor2);
     }
 

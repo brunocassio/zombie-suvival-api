@@ -5,6 +5,7 @@ import com.zombiesurvival.view.View;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bru9isk on 02/01/17.
@@ -40,6 +41,9 @@ public class Survivor {
 
     @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})
     private List<Inventory> inventoryList;
+
+    @ElementCollection
+    private Map<String, String> items;
 
     public Long getId() {
         return id;
@@ -111,5 +115,13 @@ public class Survivor {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Map<String, String> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<String, String> items) {
+        this.items = items;
     }
 }
