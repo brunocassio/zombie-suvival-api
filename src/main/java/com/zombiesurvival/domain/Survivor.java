@@ -42,6 +42,11 @@ public class Survivor {
     @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})
     private List<Inventory> inventoryList;
 
+    @ManyToMany
+    @JoinTable(name = "denuncias", joinColumns = {@JoinColumn(name = "id_denunciado", referencedColumnName = "id")},
+               inverseJoinColumns = {@JoinColumn(name = "id_denunciante", referencedColumnName = "id")})
+    private List<Survivor> denunciantes;
+
     @ElementCollection
     private Map<String, String> items;
 
@@ -125,4 +130,11 @@ public class Survivor {
         this.items = items;
     }
 
+    public List<Survivor> getDenunciantes() {
+        return denunciantes;
+    }
+
+    public void setDenunciantes(List<Survivor> denunciantes) {
+        this.denunciantes = denunciantes;
+    }
 }
