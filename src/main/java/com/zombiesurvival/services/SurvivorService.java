@@ -13,4 +13,7 @@ public interface SurvivorService {
     List<Survivor> listAllSurvivor();
     Survivor fetchSingleSurvivor(Long id);
     void addSurvivor(Survivor survivor);
+    Survivor getSurvivorByName(String name);
+    void updateLocation(Survivor survivor);
+    Survivor getSurvivorById(Long id);
 }

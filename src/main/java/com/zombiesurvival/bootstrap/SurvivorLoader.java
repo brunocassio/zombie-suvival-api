@@ -99,6 +99,8 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
         survivor1.setInventoryList(returnInventory(survivor1));
 
+
+
         Map<String, String > items1 = new HashMap<>();
         items1.put("Water", "1");
         survivor1.setItems(items1);

@@ -39,4 +39,19 @@ public class SurvivorServiceImpl implements SurvivorService {
     public void addSurvivor(Survivor survivor) {
         survivorRepository.save(survivor);
     }
+
+    @Override
+    public Survivor getSurvivorByName(String name) {
+        return survivorRepository.getSurvivorByName(name);
+    }
+
+    @Override
+    public void updateLocation(Survivor survivor) {
+        survivorRepository.save(survivor);
+    }
+
+    @Override
+    public Survivor getSurvivorById(Long id) {
+        return survivorRepository.findOne(id);
+    }
 }

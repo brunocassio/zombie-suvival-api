@@ -33,24 +33,58 @@ public class SurvivorController {
         this.survivorService = survivorService;
     }
 
+//    public ResponseEntity<Survivor> flagSurvivorAsInfected(){
+//
+//    }
+
+    @RequestMapping(value = "/api/people/{id}.json",
+                    method = RequestMethod.PATCH,
+                    produces = "application/json")
+    public ResponseEntity<Survivor> updateLocation(@RequestBody Survivor survivor){
+        Survivor currentSurvivor;
+        if(survivor != null && survivor.getId() != null && survivor.getLonlat() != null){
+            currentSurvivor = survivorService.getSurvivorById(survivor.getId());
+            if(currentSurvivor != null){
+                currentSurvivor.setLonlat(survivor.getLonlat());
+                currentSurvivor.setUpdated_at(returnFormatedDate(new Date()));
+                survivorService.updateLocation(currentSurvivor);
+            }else{
+                return new ResponseEntity<>(survivor, HttpStatus.NOT_ACCEPTABLE);
+            }
+
+        }else{
+            return new ResponseEntity<>(survivor, HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(currentSurvivor, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/api/people.json",
                     method = RequestMethod.POST,
                     produces = "application/json")
     public ResponseEntity<Survivor> addSurvivor(@RequestBody Survivor survivor){
 
-        survivor.setInfected(false);
-        survivor.setCreated_at(returnFormatedDate(new Date()));
-        survivor.setUpdated_at(returnFormatedDate(new Date()));
-        survivor.setInventoryList(returnInventoryList(survivor.getItems(), survivor));
-        survivorService.addSurvivor(survivor);
-        return new ResponseEntity<Survivor>(survivor, HttpStatus.OK);
+        if(survivor != null && survivor.getName() != null && survivor.getGender() != null && survivor.getAge() != null){
+            Survivor existingSurvivor = survivorService.getSurvivorByName(survivor.getName());
+            if(existingSurvivor != null){
+                return new ResponseEntity<>(existingSurvivor, HttpStatus.NOT_ACCEPTABLE);
+            }else{
+                survivor.setInfected(false);
+                survivor.setCreated_at(returnFormatedDate(new Date()));
+                survivor.setUpdated_at(returnFormatedDate(new Date()));
+                survivor.setInventoryList(returnInventoryList(survivor.getItems(), survivor));
+                survivorService.addSurvivor(survivor);
+                return new ResponseEntity<>(survivor, HttpStatus.OK);
+            }
+        }else{
+            return new ResponseEntity<>(survivor, HttpStatus.NOT_ACCEPTABLE);
+        }
     }
 
     @JsonView(View.Summary.class)
     @RequestMapping(value = "/api/people/{id}.json",
                     method = RequestMethod.GET,
                     produces = "application/json")
-    public Survivor fetchSingleSurivor(@PathVariable Long id){
+    public Survivor fetchSingleSurvivor(@PathVariable Long id){
         Survivor survivor = survivorService.fetchSingleSurvivor(id);
         return survivor;
     }
