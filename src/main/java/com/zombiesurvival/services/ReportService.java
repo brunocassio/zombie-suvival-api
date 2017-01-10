@@ -6,4 +6,5 @@ package com.zombiesurvival.services;
 public interface ReportService {
 
     Double getAverageInfectedPeople();
+    Double getAverageNonInfectedPeople();
 }

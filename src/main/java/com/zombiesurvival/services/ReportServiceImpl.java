@@ -20,9 +20,13 @@ public class ReportServiceImpl implements ReportService {
     public Double getAverageInfectedPeople() {
         Double total = survivorService.getTotalSurvivor();
         Double totalInfected = survivorService.getTotalInfected();
+        return (totalInfected / total) * 100;
+    }
 
-        Double average = (totalInfected / total) * 100;
-
-        return average;
+    @Override
+    public Double getAverageNonInfectedPeople() {
+        Double total = survivorService.getTotalSurvivor();
+        Double totalNonInfected = survivorService.getTotalNonInfected();
+        return (totalNonInfected / total) * 100;
     }
 }

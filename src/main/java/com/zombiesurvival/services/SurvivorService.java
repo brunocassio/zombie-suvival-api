@@ -18,4 +18,5 @@ public interface SurvivorService {
     Survivor getSurvivorById(Long id);
     Double getTotalSurvivor();
     Double getTotalInfected();
+    Double getTotalNonInfected();
 }

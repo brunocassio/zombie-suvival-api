@@ -22,4 +22,7 @@ public interface SurvivorRepository extends CrudRepository<Survivor, Long> {
 
     @Query("select count(s) from Survivor s where s.isInfected = true")
     Double getTotalOfInfected();
+
+    @Query("select count(s) from Survivor s where s.isInfected = false")
+    Double getTotalNonInfected();
 }
