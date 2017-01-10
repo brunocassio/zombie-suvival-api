@@ -16,4 +16,6 @@ public interface SurvivorService {
     Survivor getSurvivorByName(String name);
     void updateLocation(Survivor survivor);
     Survivor getSurvivorById(Long id);
+    Double getTotalSurvivor();
+    Double getTotalInfected();
 }

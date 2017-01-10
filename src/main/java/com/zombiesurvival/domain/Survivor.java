@@ -42,9 +42,6 @@ public class Survivor {
     @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})
     private List<Inventory> inventoryList;
 
-    @OneToMany(mappedBy = "survivor", cascade = {CascadeType.ALL})
-    private List<Flag> flags;
-
     @ElementCollection
     private Map<String, String> items;
 
@@ -128,11 +125,4 @@ public class Survivor {
         this.items = items;
     }
 
-    public List<Flag> getFlags() {
-        return flags;
-    }
-
-    public void setFlags(List<Flag> flags) {
-        this.flags = flags;
-    }
 }

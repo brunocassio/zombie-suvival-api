@@ -54,4 +54,15 @@ public class SurvivorServiceImpl implements SurvivorService {
     public Survivor getSurvivorById(Long id) {
         return survivorRepository.findOne(id);
     }
+
+    @Override
+    public Double getTotalSurvivor() {
+        Double total = survivorRepository.getTotalSurvivor();
+        return total;
+    }
+
+    @Override
+    public Double getTotalInfected() {
+        return survivorRepository.getTotalOfInfected();
+    }
 }

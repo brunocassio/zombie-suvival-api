@@ -16,4 +16,10 @@ public interface SurvivorRepository extends CrudRepository<Survivor, Long> {
 
     @Query("select s from Survivor s where s.name = ?#{[0]}")
     Survivor getSurvivorByName(String name);
+
+    @Query("select count(s) from Survivor s")
+    Double getTotalSurvivor();
+
+    @Query("select count(s) from Survivor s where s.isInfected = true")
+    Double getTotalOfInfected();
 }
