@@ -19,4 +19,5 @@ public interface SurvivorService {
     Double getTotalSurvivor();
     Double getTotalInfected();
     Double getTotalNonInfected();
+    void updateSurvivor(Survivor survivor);
 }

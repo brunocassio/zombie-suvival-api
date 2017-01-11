@@ -33,9 +33,26 @@ public class SurvivorController {
         this.survivorService = survivorService;
     }
 
-//    public ResponseEntity<Survivor> flagSurvivorAsInfected(){
-//
-//    }
+    @RequestMapping(value = "/api/people/{id}/properties/trade_item.json",
+                    method = RequestMethod.POST,
+                    produces = "application/json")
+    public ResponseEntity<String> flagSurvivorAsInfected(@RequestBody Long idInfected, @PathVariable Long id){
+        Survivor infectedSurvivor = survivorService.fetchSingleSurvivor(idInfected);
+        Survivor survivorMakingRegistration = survivorService.fetchSingleSurvivor(id);
+
+        if(infectedSurvivor != null && survivorMakingRegistration != null){
+            if(infectedSurvivor.getDenunciantes() != null){
+                infectedSurvivor.getDenunciantes().add(survivorMakingRegistration);
+
+                if(infectedSurvivor.getDenunciantes().size() == 3){
+                    infectedSurvivor.setInfected(Boolean.TRUE);
+                }
+                survivorService.updateSurvivor(infectedSurvivor);
+                return new ResponseEntity<>("Survivor registered as infected!", HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>("There is no survivor with this id", HttpStatus.NOT_ACCEPTABLE);
+    }
 
     @RequestMapping(value = "/api/people/{id}.json",
                     method = RequestMethod.PATCH,

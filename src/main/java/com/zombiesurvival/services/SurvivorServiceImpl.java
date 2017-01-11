@@ -70,4 +70,9 @@ public class SurvivorServiceImpl implements SurvivorService {
     public Double getTotalNonInfected() {
         return survivorRepository.getTotalNonInfected();
     }
+
+    @Override
+    public void updateSurvivor(Survivor survivor) {
+        survivorRepository.save(survivor);
+    }
 }

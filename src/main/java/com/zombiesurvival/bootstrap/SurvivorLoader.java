@@ -99,8 +99,6 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
         survivor1.setInventoryList(returnInventory(survivor1));
 
-
-
         Map<String, String > items1 = new HashMap<>();
         items1.put("Water", "1");
         survivor1.setItems(items1);
@@ -122,6 +120,38 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor2.setItems(items2);
 
         survivorRepository.save(survivor2);
+
+        Survivor survivor3 = new Survivor();
+        survivor3.setName("Maria");
+        survivor3.setAge(4);
+        survivor3.setCreated_at(returnFormatedDate(new Date()));
+        survivor3.setUpdated_at(returnFormatedDate(new Date()));
+        survivor3.setGender("F");
+        survivor3.setInfected(Boolean.FALSE);
+        survivor3.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
+        survivor3.setInventoryList(returnInventory(survivor3));
+
+        Map<String, String > items3 = new HashMap<>();
+        items3.put("Water", "1");
+        survivor3.setItems(items3);
+
+        survivorRepository.save(survivor3);
+
+        Survivor survivor4 = new Survivor();
+        survivor4.setName("Artur");
+        survivor4.setAge(25);
+        survivor4.setCreated_at(returnFormatedDate(new Date()));
+        survivor4.setUpdated_at(returnFormatedDate(new Date()));
+        survivor4.setGender("M");
+        survivor4.setInfected(Boolean.FALSE);
+        survivor4.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
+        survivor4.setInventoryList(returnInventory(survivor4));
+
+        Map<String, String > items4 = new HashMap<>();
+        items4.put("Water", "1");
+        survivor4.setItems(items4);
+
+        survivorRepository.save(survivor4);
     }
 
     private String returnFormatedDate(Date date){
