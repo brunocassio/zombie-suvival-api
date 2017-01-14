@@ -23,4 +23,9 @@ public class PropertiesServiceImpl implements PropertiesService {
         Iterable<Inventory> inventories = inventoryRepository.fetchAllItemsById(id);
         return inventories;
     }
+
+    @Override
+    public void removeInventory(Inventory inventory) {
+        this.inventoryRepository.delete(inventory);
+    }
 }

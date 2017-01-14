@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class Util {
 
-    private static Item returnItem(String itemName, Integer quantity){
+    public static Item returnItem(String itemName, Integer quantity){
         int totalPoits;
         switch (itemName){
             case "Water":

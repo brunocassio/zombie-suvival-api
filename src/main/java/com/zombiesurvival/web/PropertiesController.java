@@ -3,6 +3,7 @@ package com.zombiesurvival.web;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.zombiesurvival.beans.TradeBean;
 import com.zombiesurvival.domain.Inventory;
+import com.zombiesurvival.domain.Item;
 import com.zombiesurvival.domain.Survivor;
 import com.zombiesurvival.services.PropertiesService;
 import com.zombiesurvival.services.SurvivorService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,53 +42,63 @@ public class PropertiesController {
             produces = "application/json")
     public ResponseEntity<String> makeTransaction(@RequestBody TradeBean trade,
                                                   @PathVariable Long id){
-
         Survivor provider = survivorService.getSurvivorById(id);
         Survivor consumer = survivorService.getSurvivorByName(trade.getName());
-
         List<Inventory> itemsWantedList = Util.returnInventoryList(trade.getItemsWanted(), consumer);
         List<Inventory> payInReturnList = Util.returnInventoryList(trade.getPayInReturn(), provider);
 
-        if(isTotalPointsEqual(itemsWantedList, payInReturnList, consumer, provider)){
-
-            consumer.setInventoryList(payInReturnList);
-            provider.setInventoryList(itemsWantedList);
-            survivorService.updateSurvivor(consumer);
-            survivorService.updateSurvivor(provider);
-            return new ResponseEntity<>("ok", HttpStatus.OK);
-
-        }else{
-            return new ResponseEntity<>("not ok", HttpStatus.NOT_ACCEPTABLE);
-        }
-    }
-
-    private Boolean isTotalPointsEqual(List<Inventory> itemsWantedList, List<Inventory> payInReturnList, Survivor consumer, Survivor provider){
-        Integer pointsItemWanted = 0;
-        Integer pointsPayReturn = 0;
-        Integer pointsConsumer = 0;
-        Integer pointsProvider = 0;
-
-        for(Inventory providerInventory : provider.getInventoryList()){
-            pointsProvider += providerInventory.getItem().getPoints();
-        }
-
-        for(Inventory consumerInvetory : consumer.getInventoryList()){
-            pointsConsumer += consumerInvetory.getItem().getPoints();
-        }
-
-        for(Inventory itemWanted : itemsWantedList){
-            pointsItemWanted += itemWanted.getItem().getPoints();
-        }
-
+        List<Inventory> itemsToRemoveFromProvider = new ArrayList<>();
         for(Inventory payInReturn : payInReturnList){
-            pointsPayReturn += payInReturn.getItem().getPoints();
+            Item itemPayInReturn = payInReturn.getItem();
+            for(Inventory providerInventory : provider.getInventoryList()){
+                Item providerItem = providerInventory.getItem();
+                if(itemPayInReturn.getName().equals(providerItem.getName()) &&
+                        itemPayInReturn.getPoints() == providerItem.getPoints()){
+                    itemsToRemoveFromProvider.add(providerInventory);
+                }
+            }
         }
 
-        if(pointsItemWanted == pointsPayReturn && pointsProvider <= pointsConsumer){
-            return true;
-        }else{
-            return false;
+        List<Inventory> itemsToRemoveFromConsumer = new ArrayList<>();
+        for(Inventory inventoryWanted : itemsWantedList){
+            Item itemWanted = inventoryWanted.getItem();
+            for(Inventory consumerInventory : consumer.getInventoryList()){
+                Item consumerItem = consumerInventory.getItem();
+                if(itemWanted.getName().equals(consumerItem.getName()) &&
+                        itemWanted.getPoints() == consumerItem.getPoints()){
+                    itemsToRemoveFromConsumer.add(consumerInventory);
+                }
+            }
         }
+
+        if(itemsToRemoveFromConsumer.size() > 0 && itemsToRemoveFromProvider.size() > 0){
+            List<Inventory> itemsAddToConsumer;
+            List<Inventory> itemsAddToProvider;
+
+            itemsAddToConsumer = itemsToRemoveFromProvider;
+            itemsAddToProvider = itemsToRemoveFromConsumer;
+
+            for(Inventory ic : itemsToRemoveFromConsumer){
+                propertiesService.removeInventory(ic);
+            }
+
+            for(Inventory ic : itemsToRemoveFromProvider){
+                propertiesService.removeInventory(ic);
+            }
+
+            for(Inventory it : itemsAddToConsumer){
+                consumer.getInventoryList().add(it);
+                survivorService.updateSurvivor(consumer);
+            }
+
+            for(Inventory it : itemsAddToProvider){
+                provider.getInventoryList().add(it);
+                survivorService.updateSurvivor(provider);
+            }
+        }else{
+            return new ResponseEntity<>("There is no item to change!", HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>("Transaction done!", HttpStatus.OK);
     }
 
     @JsonView(View.Summary.class)

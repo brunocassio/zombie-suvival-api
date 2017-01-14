@@ -6,6 +6,7 @@ import com.zombiesurvival.domain.Survivor;
 import com.zombiesurvival.repositories.InventoryRepository;
 import com.zombiesurvival.repositories.ItemRepository;
 import com.zombiesurvival.repositories.SurvivorRepository;
+import com.zombiesurvival.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -43,6 +44,62 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         addSurvivor();
+    }
+
+
+    private List<Inventory> returnInventoryUser1(Survivor user1){
+        List<Inventory> inventories = new ArrayList<>();
+
+        Inventory water = new Inventory();
+        water.setCreated_at(returnFormatedDate(new Date()));
+        water.setUpdated_at(returnFormatedDate(new Date()));
+        water.setQuantity(1);
+        water.setItem(Util.returnItem("Water", 1));
+        water.setSurvivor(user1);
+
+        inventories.add(water);
+        return inventories;
+    }
+
+    private List<Inventory> returnInventoryUser2(Survivor user2){
+        List<Inventory> inventories = new ArrayList<>();
+
+        Inventory ammunition1 = new Inventory();
+        ammunition1.setCreated_at(returnFormatedDate(new Date()));
+        ammunition1.setUpdated_at(returnFormatedDate(new Date()));
+        ammunition1.setQuantity(4);
+        ammunition1.setItem(Util.returnItem("Ammunition", 4));
+        ammunition1.setSurvivor(user2);
+
+        inventories.add(ammunition1);
+
+        Inventory ammunition2 = new Inventory();
+        ammunition2.setCreated_at(returnFormatedDate(new Date()));
+        ammunition2.setUpdated_at(returnFormatedDate(new Date()));
+        ammunition2.setQuantity(4);
+        ammunition2.setItem(Util.returnItem("Ammunition", 4));
+        ammunition2.setSurvivor(user2);
+
+        inventories.add(ammunition2);
+
+        Inventory ammunition3 = new Inventory();
+        ammunition3.setCreated_at(returnFormatedDate(new Date()));
+        ammunition3.setUpdated_at(returnFormatedDate(new Date()));
+        ammunition3.setQuantity(4);
+        ammunition3.setItem(Util.returnItem("Ammunition", 4));
+        ammunition3.setSurvivor(user2);
+
+        inventories.add(ammunition3);
+
+        Inventory ammunition4 = new Inventory();
+        ammunition4.setCreated_at(returnFormatedDate(new Date()));
+        ammunition4.setUpdated_at(returnFormatedDate(new Date()));
+        ammunition4.setQuantity(4);
+        ammunition4.setItem(Util.returnItem("Ammunition", 4));
+        ammunition4.setSurvivor(user2);
+
+        inventories.add(ammunition4);
+        return inventories;
     }
 
     private List<Inventory> returnInventory(Survivor survivor){
@@ -97,7 +154,7 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor1.setGender("M");
         survivor1.setInfected(Boolean.FALSE);
         survivor1.setLonlat("POINT (-26.431228064506428 -45.17578125)");
-        survivor1.setInventoryList(returnInventory(survivor1));
+        survivor1.setInventoryList(returnInventoryUser1(survivor1));
 
         Map<String, String > items1 = new HashMap<>();
         items1.put("Water", "1");
@@ -113,10 +170,10 @@ public class SurvivorLoader implements ApplicationListener<ContextRefreshedEvent
         survivor2.setGender("F");
         survivor2.setInfected(Boolean.FALSE);
         survivor2.setLonlat("POINT (-55.963749481121276 -68.1991446018219)");
-        survivor2.setInventoryList(returnInventory(survivor2));
+        survivor2.setInventoryList(returnInventoryUser2(survivor2));
 
         Map<String, String > items2 = new HashMap<>();
-        items2.put("Water", "1");
+        items2.put("Ammunition", "4");
         survivor2.setItems(items2);
 
         survivorRepository.save(survivor2);
